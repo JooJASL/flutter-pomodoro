@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasks/pomodoro_controller.dart';
 
 class Settings extends ConsumerStatefulWidget {
@@ -76,6 +77,15 @@ class _SettingsState extends ConsumerState<Settings> {
       ref.read(pomodoroProvider.notifier).longRestDuration =
           int.parse(longRestTextEditingController.text);
     }
+
+    SharedPreferences.getInstance().then((prefs) async {
+      await prefs.setInt(
+          'work', ref.read(pomodoroProvider.notifier).workDuration);
+      await prefs.setInt(
+          'rest', ref.read(pomodoroProvider.notifier).restDuration);
+      await prefs.setInt(
+          'long-rest', ref.read(pomodoroProvider.notifier).longRestDuration);
+    });
 
     Navigator.pop(context);
   }
