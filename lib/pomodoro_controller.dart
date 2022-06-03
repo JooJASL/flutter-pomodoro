@@ -8,10 +8,61 @@ final pomodoroProvider =
   return PomodoroController(ref);
 });
 
+final prefsProvider = FutureProvider<SharedPreferences>((ref) async {
+  final instance = await SharedPreferences.getInstance();
+
+  return instance;
+});
+
 class PomodoroController extends StateNotifier<PomodoroState> {
-  int workDuration;
-  int restDuration;
-  int longRestDuration;
+  final Ref ref;
+  PomodoroController(this.ref) : super(PomodoroState.work) {
+    ref.read(prefsProvider).when(
+        data: (value) {
+          prefs = value;
+        },
+        error: (err, stack) {},
+        loading: () {});
+  }
+
+  SharedPreferences? prefs;
+
+  int? _workDuration;
+
+  int get workDuration {
+    _workDuration = prefs!.getInt('work');
+    return _workDuration ?? 25;
+  }
+
+  set workDuration(int workDuration) {
+    _workDuration = workDuration;
+    prefs!.setInt('work', _workDuration ?? 25);
+  }
+
+  int? _restDuration;
+
+  int get restDuration {
+    _restDuration = prefs!.getInt('rest');
+    return _restDuration ?? 5;
+  }
+
+  set restDuration(int restDuration) {
+    _restDuration = restDuration;
+    prefs!.setInt('rest', _restDuration ?? 5);
+  }
+
+  int? _longRestDuration;
+
+  int get longRestDuration {
+    _longRestDuration = prefs!.getInt('long-rest');
+    return _longRestDuration ?? 10;
+  }
+
+  set longRestDuration(int longRestDuration) {
+    _longRestDuration = longRestDuration;
+    prefs!.setInt('long-rest', _longRestDuration ?? 10);
+  }
+
   bool isPaused = true;
 
   int get currentDuration {
@@ -26,14 +77,6 @@ class PomodoroController extends StateNotifier<PomodoroState> {
         return 0;
     }
   }
-
-  final Ref ref;
-  PomodoroController(
-    this.ref, {
-    this.workDuration = 25,
-    this.restDuration = 5,
-    this.longRestDuration = 10,
-  }) : super(PomodoroState.work);
 
   set pomodoroState(value) {
     state = value;

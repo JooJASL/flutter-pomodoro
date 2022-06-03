@@ -1,7 +1,6 @@
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasks/pomodoro_controller.dart';
 import 'package:tasks/pomodoro_page.dart';
 import 'package:yaru/yaru.dart';
@@ -33,25 +32,18 @@ class Homepage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    SharedPreferences.getInstance().then(
-      (prefs) {
-        if (prefs.getInt('work') != null) {
-          ref.read(pomodoroProvider.notifier).workDuration =
-              prefs.getInt('work')!;
-        }
-        if (prefs.getInt('rest') != null) {
-          ref.read(pomodoroProvider.notifier).restDuration =
-              prefs.getInt('rest')!;
-        }
-        if (prefs.getInt('long-rest') != null) {
-          ref.read(pomodoroProvider.notifier).longRestDuration =
-              prefs.getInt('long-rest')!;
-        }
-        ref.refresh(pomodoroProvider);
+    return ref.watch(prefsProvider).when(
+      data: (prefs) {
+        return const Scaffold(
+          body: PomodoroPage(),
+        );
       },
-    );
-    return const Scaffold(
-      body: PomodoroPage(),
+      error: (err, stack) {
+        return ErrorWidget(err.toString());
+      },
+      loading: () {
+        return const CircularProgressIndicator();
+      },
     );
   }
 }
