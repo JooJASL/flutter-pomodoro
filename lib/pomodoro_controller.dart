@@ -1,4 +1,3 @@
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,14 +33,7 @@ class PomodoroController extends StateNotifier<PomodoroState> {
     this.workDuration = 25,
     this.restDuration = 5,
     this.longRestDuration = 10,
-  }) : super(PomodoroState.work) {
-    SharedPreferences.getInstance().then((prefs) {
-      if (prefs.getInt('work') != null) workDuration = prefs.getInt('work')!;
-      if (prefs.getInt('rest') != null) restDuration = prefs.getInt('rest')!;
-      if (prefs.getInt('long-rest') != null)
-        longRestDuration = prefs.getInt('long-rest')!;
-    });
-  }
+  }) : super(PomodoroState.work);
 
   set pomodoroState(value) {
     state = value;

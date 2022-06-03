@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasks/pomodoro_controller.dart';
 import 'package:tasks/pomodoro_timer.dart';
+import 'package:tasks/tasks.dart';
 
 import 'settings.dart';
 
@@ -12,11 +13,19 @@ class PomodoroPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Stack(children: [
       Positioned(
+        bottom: 20,
+        right: 20,
+        child: IconButton(
+          onPressed: () => onSettingsButtonPressed(context),
+          icon: const Icon(Icons.settings),
+        ),
+      ),
+      Positioned(
           bottom: 20,
-          right: 20,
+          left: 20,
           child: IconButton(
-              onPressed: () => onSettingsButtonPressed(context),
-              icon: const Icon(Icons.settings))),
+              onPressed: () => onTasksButtonPressed(context),
+              icon: const Icon(Icons.task))),
       Material(
         color: Theme.of(context).colorScheme.primary,
         child: Row(
@@ -67,6 +76,11 @@ class PomodoroPage extends ConsumerWidget {
 
   void onSettingsButtonPressed(BuildContext context) {
     showDialog(context: context, builder: (context) => const Settings());
+  }
+
+  void onTasksButtonPressed(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const TasksPage()));
   }
 }
 
