@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasks/pomodoro_controller.dart';
 
 import 'dart:html' as html;
-import 'js.dart' as dJS;
+import 'js.dart' as d_js;
 
 class PomodoroTimer extends ConsumerStatefulWidget {
   final Color fillLineColor;
@@ -82,7 +81,7 @@ class _PomdoroTimerState extends ConsumerState<PomodoroTimer> {
       lang: 'en',
       icon: 'web/favicon.png',
     );
-    dJS.sendWebNotification("Timer ended!");
+    d_js.sendWebNotification("Timer ended!");
     ref.read(pomodoroProvider.notifier).resetTimer();
   }
 

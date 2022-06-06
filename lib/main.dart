@@ -42,8 +42,8 @@ class Homepage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(prefsProvider).when(
       data: (prefs) {
-        return const Scaffold(
-          body: PomodoroPage(),
+        return Scaffold(
+          body: const PomodoroPage(),
         );
       },
       error: (err, stack) {

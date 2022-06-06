@@ -31,49 +31,55 @@ class _AddTodoDialogState extends ConsumerState<AddTodoDialog> {
         actionsAlignment: MainAxisAlignment.center,
         content: Form(
           key: formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  textInputAction: TextInputAction.next,
-                  controller: titleEditingController,
-                  validator: (text) {
-                    if (text == null || text.isEmpty) {
-                      return 'Please write a title for task.';
-                    }
+          child: SingleChildScrollView(
+            child: SizedBox(
+              width: 250,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      textInputAction: TextInputAction.next,
+                      controller: titleEditingController,
+                      validator: (text) {
+                        if (text == null || text.isEmpty) {
+                          return 'Please write a title for task.';
+                        }
 
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  textInputAction: TextInputAction.done,
-                  controller: descriptionEditingController,
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      textInputAction: TextInputAction.done,
+                      controller: descriptionEditingController,
+                      maxLines: null,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 20),
+                  Slider(
+                    min: 1,
+                    max: 5,
+                    divisions: 5,
+                    value: difficulty,
+                    onChanged: (value) {
+                      setState(() {
+                        difficulty = value;
+                      });
+                    },
+                  ),
+                ],
               ),
-              const SizedBox(height: 20),
-              Slider(
-                min: 1,
-                max: 5,
-                divisions: 5,
-                value: difficulty,
-                onChanged: (value) {
-                  setState(() {
-                    difficulty = value;
-                  });
-                },
-              ),
-            ],
+            ),
           ),
         ),
         actions: <TextButton>[

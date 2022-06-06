@@ -43,7 +43,7 @@ class _TodoTileState extends ConsumerState<TodoTile> {
                           width: 60,
                           height: 60,
                           child: FittedBox(
-                            child: Icon(Icons.arrow_back_ios_rounded,
+                            child: Icon(Icons.density_large,
                                 color: isChecked
                                     ? Theme.of(context).disabledColor
                                     : Theme.of(context).primaryColor),
@@ -72,13 +72,12 @@ class TodoContents extends StatefulWidget {
 class _TodoContentsState extends State<TodoContents> {
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+    return Row(children: [
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             Text(
-              // Extra space so they match.
               widget.todo.title,
               style: TextStyle(
                   decoration: widget.checked.value
@@ -96,6 +95,7 @@ class _TodoContentsState extends State<TodoContents> {
           ],
         ),
       ),
+      Expanded(child: Container()),
       SizedBox(
         width: 50,
         child: Checkbox(
