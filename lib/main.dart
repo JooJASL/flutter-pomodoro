@@ -4,8 +4,8 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasks/pomodoro_controller.dart';
-import 'package:tasks/pomodoro_page.dart';
+import 'package:tasks/pomodoro_page/pomodoro_controller.dart';
+import 'package:tasks/pomodoro_page/pomodoro_page.dart';
 import 'package:yaru/yaru.dart';
 
 Future<void> main() async {

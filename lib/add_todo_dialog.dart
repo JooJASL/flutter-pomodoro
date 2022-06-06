@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yaru/yaru.dart';
 
-import 'tasks.dart';
-import 'todo_model.dart';
+import 'tasks_page/tasks.dart';
+import 'tasks_page/todo_model.dart';
 
 class AddTodoDialog extends ConsumerStatefulWidget {
   const AddTodoDialog({Key? key}) : super(key: key);

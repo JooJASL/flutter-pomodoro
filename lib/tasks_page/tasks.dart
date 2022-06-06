@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yaru/yaru.dart';
 
-import 'add_todo_dialog.dart';
+import '../add_todo_dialog.dart';
 import 'todo_model.dart';
 import 'todo_view.dart';
 

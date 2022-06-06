@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasks/tasks.dart';
 
+import 'tasks.dart';
 import 'todo_tile.dart';
 
 class TodoView extends ConsumerWidget {

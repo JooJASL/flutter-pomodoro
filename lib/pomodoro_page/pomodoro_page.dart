@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasks/pomodoro_controller.dart';
-import 'package:tasks/pomodoro_timer.dart';
-import 'package:tasks/tasks.dart';
+import 'package:tasks/pomodoro_page/pomodoro_controller.dart';
+import 'package:tasks/pomodoro_page/pomodoro_timer.dart';
 
-import 'settings.dart';
+import '../settings.dart';
+import '../tasks_page/tasks.dart';
 
 class PomodoroPage extends ConsumerWidget {
   const PomodoroPage({Key? key}) : super(key: key);
@@ -78,15 +78,15 @@ class Content extends StatelessWidget {
             backfillLineColor: Theme.of(context).colorScheme.onPrimary,
           ),
           const SizedBox(height: 49),
-          const _Buttons(),
+          const Buttons(),
         ],
       ),
     );
   }
 }
 
-class _Buttons extends ConsumerWidget {
-  const _Buttons({Key? key}) : super(key: key);
+class Buttons extends ConsumerWidget {
+  const Buttons({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

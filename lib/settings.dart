@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tasks/pomodoro_controller.dart';
-import 'package:tasks/textfield_for_digits.dart';
+import 'package:tasks/pomodoro_page/pomodoro_controller.dart';
+import 'package:tasks/pomodoro_page/textfield_for_digits.dart';
 
 class Settings extends ConsumerStatefulWidget {
   const Settings({Key? key}) : super(key: key);

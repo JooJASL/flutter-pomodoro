@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasks/pomodoro_controller.dart';
+import 'package:tasks/pomodoro_page/pomodoro_controller.dart';
 
 import 'dart:html' as html;
-import 'js.dart' as d_js;
+import '../js.dart' as d_js;
 
 class PomodoroTimer extends ConsumerStatefulWidget {
   final Color fillLineColor;
