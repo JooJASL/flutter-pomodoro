@@ -15,6 +15,7 @@ class PomodoroPage extends ConsumerWidget {
     return Stack(children: const <Widget>[
       TasksButton(),
       SettingsButton(),
+      Toolbar(),
       Content(),
     ]);
   }
@@ -68,19 +69,22 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const Toolbar(),
-          const SizedBox(height: 25),
-          PomodoroTimer(
-            fillLineColor: Theme.of(context).colorScheme.primary,
-            backfillLineColor: Theme.of(context).colorScheme.onPrimary,
-          ),
-          const SizedBox(height: 49),
-          const Buttons(),
-        ],
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const SizedBox(height: 25),
+            PomodoroTimer(
+              fillLineColor: Theme.of(context).colorScheme.primary,
+              backfillLineColor: Theme.of(context).colorScheme.onPrimary,
+            ),
+            const SizedBox(height: 49),
+            const Buttons(),
+          ],
+        ),
       ),
     );
   }
