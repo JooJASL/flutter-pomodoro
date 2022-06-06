@@ -5,6 +5,7 @@ import 'package:tasks/pomodoro_page/pomodoro_timer.dart';
 
 import '../settings.dart';
 import '../tasks_page/tasks.dart';
+import 'toolbar.dart';
 
 class PomodoroPage extends ConsumerWidget {
   const PomodoroPage({Key? key}) : super(key: key);
@@ -170,64 +171,5 @@ class PauseButton extends ConsumerWidget {
           ),
         ),
         child: const Icon(Icons.pause));
-  }
-}
-
-class Toolbar extends ConsumerWidget {
-  const Toolbar({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Material(
-      color: Theme.of(context).colorScheme.primary,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: const <Widget>[
-          WorkButton(),
-          RestButton(),
-        ],
-      ),
-    );
-  }
-}
-
-class WorkButton extends ConsumerWidget {
-  const WorkButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      height: 75,
-      child: FittedBox(
-        child: IconButton(
-            onPressed: () => ref.read(pomodoroProvider.notifier).pomodoroState =
-                PomodoroState.work,
-            icon: const Icon(Icons.work)),
-      ),
-    );
-  }
-}
-
-class RestButton extends ConsumerWidget {
-  const RestButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      height: 75,
-      child: FittedBox(
-        child: IconButton(
-            onPressed: () {
-              if (ref.read(pomodoroProvider) == PomodoroState.rest) {
-                ref.read(pomodoroProvider.notifier).pomodoroState =
-                    PomodoroState.longRest;
-              } else {
-                ref.read(pomodoroProvider.notifier).pomodoroState =
-                    PomodoroState.rest;
-              }
-            },
-            icon: const Icon(Icons.games_outlined)),
-      ),
-    );
   }
 }
