@@ -16,63 +16,98 @@ class TodoTile extends ConsumerStatefulWidget {
 }
 
 class _TodoTileState extends ConsumerState<TodoTile> {
-  bool checked = false;
-
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Card(
-        color: checked
-            ? Theme.of(context).disabledColor
-            : Theme.of(context).cardColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
+    final checked = ValueNotifier<bool>(widget.todo.done);
+    return ValueListenableBuilder<bool>(
+      valueListenable: checked,
+      child: TodoContents(
+        widget.todo,
+        checked,
+      ),
+      builder: (context, isChecked, todoContents) {
+        return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Card(
+              color: isChecked
+                  ? Theme.of(context).disabledColor
+                  : Theme.of(context).cardColor,
+              // child: todoContents,
+              child: Stack(
                 children: [
-                  Text(
-                    widget.todo.title,
-                    style: TextStyle(
-                        decoration: checked
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      for (var i = 0; i < widget.todo.difficulty; i++)
+                        SizedBox(
+                          width: 60,
+                          height: 60,
+                          child: FittedBox(
+                            child: Icon(Icons.arrow_back_ios_rounded,
+                                color: isChecked
+                                    ? Theme.of(context).disabledColor
+                                    : Theme.of(context).primaryColor),
+                          ),
+                        ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    widget.todo.description,
-                    style: Theme.of(context).textTheme.caption!.copyWith(
-                        decoration: checked
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none),
-                  ),
+                  todoContents!,
                 ],
               ),
+            ));
+      },
+    );
+  }
+}
+
+class TodoContents extends StatefulWidget {
+  final Todo todo;
+  final ValueNotifier<bool> checked;
+  const TodoContents(this.todo, this.checked, {Key? key}) : super(key: key);
+
+  @override
+  _TodoContentsState createState() => _TodoContentsState();
+}
+
+class _TodoContentsState extends State<TodoContents> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Text(
+              // Extra space so they match.
+              widget.todo.title,
+              style: TextStyle(
+                  decoration: widget.checked.value
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none),
             ),
-            SizedBox(
-              width: 50,
-              child: Checkbox(
-                  value: checked,
-                  onChanged: (value) {
-                    setState(
-                      () {
-                        checked = value ?? false;
-                        widget.todo.done = value ?? false;
-                      },
-                    );
-                  }),
+            const SizedBox(height: 8),
+            Text(
+              widget.todo.description,
+              style: Theme.of(context).textTheme.caption!.copyWith(
+                  decoration: widget.checked.value
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  @override
-  void initState() {
-    checked = widget.todo.done;
-    super.initState();
+      SizedBox(
+        width: 50,
+        child: Checkbox(
+          value: widget.checked.value,
+          onChanged: (value) {
+            setState(() {
+              widget.checked.value = value ?? false;
+              widget.todo.done = value ?? false;
+            });
+          },
+        ),
+      ),
+    ]);
   }
 }

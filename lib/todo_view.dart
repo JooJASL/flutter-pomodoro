@@ -14,7 +14,7 @@ class TodoView extends ConsumerWidget {
     if (todos.isEmpty) {
       return Center(
         child: Text(
-          'No Todos, Yet',
+          'No Todos, Yet.',
           style: Theme.of(context).textTheme.displaySmall,
         ),
       );
@@ -22,6 +22,7 @@ class TodoView extends ConsumerWidget {
 
     return ListView.builder(
       itemCount: todos.length,
+      shrinkWrap: true,
       itemBuilder: (context, index) {
         return Dismissible(
           key: UniqueKey(),

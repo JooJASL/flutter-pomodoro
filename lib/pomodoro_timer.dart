@@ -1,9 +1,11 @@
 import 'dart:async';
-import 'package:desktop_notifications/desktop_notifications.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasks/pomodoro_controller.dart';
+
+import 'dart:html' as html;
+import 'js.dart' as dJS;
 
 class PomodoroTimer extends ConsumerStatefulWidget {
   final Color fillLineColor;
@@ -22,7 +24,6 @@ class PomodoroTimer extends ConsumerStatefulWidget {
 
 class _PomdoroTimerState extends ConsumerState<PomodoroTimer> {
   late final Timer timer;
-  final notifClient = NotificationsClient();
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +76,13 @@ class _PomdoroTimerState extends ConsumerState<PomodoroTimer> {
   }
 
   void reachedEnd() {
-    notifClient.notify('Period ended!', appName: 'Tasks');
-    SystemSound.play(SystemSoundType.alert);
+    html.Notification(
+      'Timer ended!',
+      body: '${ref.read(pomodoroProvider).name} period has ended.',
+      lang: 'en',
+      icon: 'web/favicon.png',
+    );
+    dJS.sendWebNotification("Timer ended!");
     ref.read(pomodoroProvider.notifier).resetTimer();
   }
 
@@ -117,7 +123,7 @@ class _PomdoroTimerState extends ConsumerState<PomodoroTimer> {
 
   @override
   void dispose() {
-    notifClient.close();
+    // notifClient.close();
     super.dispose();
   }
 }

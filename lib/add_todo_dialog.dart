@@ -21,6 +21,11 @@ class _AddTodoDialogState extends ConsumerState<AddTodoDialog> {
   @override
   Widget build(BuildContext context) {
     return YaruTheme(
+      // ignore: prefer_const_constructors
+      data: YaruThemeData(
+        themeMode: ThemeMode.dark,
+        variant: YaruVariant.kubuntuBlue,
+      ),
       child: AlertDialog(
         title: const Center(child: Text("Create new task.")),
         actionsAlignment: MainAxisAlignment.center,
@@ -32,6 +37,7 @@ class _AddTodoDialogState extends ConsumerState<AddTodoDialog> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  textInputAction: TextInputAction.next,
                   controller: titleEditingController,
                   validator: (text) {
                     if (text == null || text.isEmpty) {
@@ -48,6 +54,7 @@ class _AddTodoDialogState extends ConsumerState<AddTodoDialog> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  textInputAction: TextInputAction.done,
                   controller: descriptionEditingController,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),

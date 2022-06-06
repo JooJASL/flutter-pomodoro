@@ -63,6 +63,10 @@ class _SettingsState extends ConsumerState<Settings> {
   }
 
   void confirm(BuildContext context) {
+    if (workTextEditingController.text.isEmpty &&
+        restTextEditingController.text.isEmpty &&
+        longRestTextEditingController.text.isEmpty) return;
+
     if (workTextEditingController.text.isNotEmpty) {
       ref.read(pomodoroProvider.notifier).workDuration =
           int.parse(workTextEditingController.text);
@@ -77,6 +81,8 @@ class _SettingsState extends ConsumerState<Settings> {
       ref.read(pomodoroProvider.notifier).longRestDuration =
           int.parse(longRestTextEditingController.text);
     }
+
+    ref.read(pomodoroProvider.notifier).resetTimer();
 
     SharedPreferences.getInstance().then((prefs) async {
       await prefs.setInt(

@@ -12,6 +12,7 @@ class PomodoroPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Stack(children: [
+      // Bottom two buttons.
       Positioned(
         bottom: 20,
         right: 20,
@@ -26,43 +27,12 @@ class PomodoroPage extends ConsumerWidget {
           child: IconButton(
               onPressed: () => onTasksButtonPressed(context),
               icon: const Icon(Icons.task))),
-      Material(
-        color: Theme.of(context).colorScheme.primary,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            SizedBox(
-              height: 75,
-              child: FittedBox(
-                child: IconButton(
-                    onPressed: () => ref
-                        .read(pomodoroProvider.notifier)
-                        .pomodoroState = PomodoroState.work,
-                    icon: const Icon(Icons.work)),
-              ),
-            ),
-            SizedBox(
-              height: 75,
-              child: FittedBox(
-                child: IconButton(
-                    onPressed: () {
-                      if (ref.read(pomodoroProvider) == PomodoroState.rest) {
-                        ref.read(pomodoroProvider.notifier).pomodoroState =
-                            PomodoroState.longRest;
-                      } else {
-                        ref.read(pomodoroProvider.notifier).pomodoroState =
-                            PomodoroState.rest;
-                      }
-                    },
-                    icon: const Icon(Icons.games_outlined)),
-              ),
-            )
-          ],
-        ),
-      ),
+      // _Toolbar;
+      const _Toolbar(),
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: <Widget>[
+          const SizedBox(height: 25),
           PomodoroTimer(
             fillLineColor: Theme.of(context).colorScheme.primary,
             backfillLineColor: Theme.of(context).colorScheme.onPrimary,
@@ -144,6 +114,48 @@ class _Buttons extends ConsumerWidget {
             ],
           ),
       ],
+    );
+  }
+}
+
+class _Toolbar extends ConsumerWidget {
+  const _Toolbar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Material(
+      color: Theme.of(context).colorScheme.primary,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          SizedBox(
+            height: 75,
+            child: FittedBox(
+              child: IconButton(
+                  onPressed: () => ref
+                      .read(pomodoroProvider.notifier)
+                      .pomodoroState = PomodoroState.work,
+                  icon: const Icon(Icons.work)),
+            ),
+          ),
+          SizedBox(
+            height: 75,
+            child: FittedBox(
+              child: IconButton(
+                  onPressed: () {
+                    if (ref.read(pomodoroProvider) == PomodoroState.rest) {
+                      ref.read(pomodoroProvider.notifier).pomodoroState =
+                          PomodoroState.longRest;
+                    } else {
+                      ref.read(pomodoroProvider.notifier).pomodoroState =
+                          PomodoroState.rest;
+                    }
+                  },
+                  icon: const Icon(Icons.games_outlined)),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

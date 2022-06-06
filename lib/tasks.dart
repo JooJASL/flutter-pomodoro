@@ -16,6 +16,10 @@ class TasksPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return YaruTheme(
+      data: YaruThemeData(
+        themeMode: ThemeMode.dark,
+        variant: YaruVariant.kubuntuBlue,
+      ),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Todos'),
